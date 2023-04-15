@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Download and Redirect</title>
+    <script>
+        function downloadAndRedirect() {
+            // Decode the base64 encoded PDF content
+            var pdfData = atob('{{ pdf_base64 }}');
+            var byteArray = new Uint8Array(pdfData.length);
+            for (var i = 0; i < pdfData.length; i++) {
+                byteArray[i] = pdfData.charCodeAt(i);
+            }
+
+            // Download the PDF
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(new Blob([byteArray], {type: 'application/pdf'}));
+            link.download = '{{ filename }}';
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+
+            // Redirect to the index page after a short delay
+            setTimeout(function() {
+                window.location.href = "{% url 'qrcodes:index' %}";
+            }, 1000);
+        }
+    </script>
+</head>
+<body onload="downloadAndRedirect()">
+</body>
+</html>

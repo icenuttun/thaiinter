@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container my-5">
+    <h2 class="mb-4">Add Metal Sheet Roof</h2>
+    <form method="post">
+      {% csrf_token %}
+      {% if form.errors %}
+        <div class="alert alert-danger">
+          Please correct the following errors:
+          <ul>
+            {% for field in form %}
+              {% for error in field.errors %}
+                <li>{{ field.label }}: {{ error }}</li>
+              {% endfor %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+      <div class="form-group">
+        <label for="{{ form.roof_type.id_for_label }}">Roof Type:</label>
+        {{ form.roof_type }}
+        <a href="{% url 'qrcodes:add_roof_type' %}" class="btn btn-sm btn-primary ml-2">Add New</a>
+        {% if form.roof_type.errors %}
+          <small class="form-text text-danger">{{ form.roof_type.errors }}</small>
+        {% endif %}
+      </div>
+      <div class="form-group">
+        <label for="{{ form.size.id_for_label }}">Size:</label>
+        {{ form.size }}
+        <a href="{% url 'qrcodes:add_roof_size' %}" class="btn btn-sm btn-primary ml-2">Add New</a>
+        {% if form.size.errors %}
+          <small class="form-text text-danger">{{ form.size.errors }}</small>
+        {% endif %}
+      </div>
+      <div class="form-group">
+        <label for="{{ form.color.id_for_label }}">Color:</label>
+        {{ form.color }}
+        <a href="{% url 'qrcodes:add_roof_color' %}" class="btn btn-sm btn-primary ml-2">Add New</a>
+        {% if form.color.errors %}
+          <small class="form-text text-danger">{{ form.color.errors }}</small>
+        {% endif %}
+      </div>
+      <div class="form-group">
+        <label for="{{ form.quantity.id_for_label }}">Quantity:</label>
+        {{ form.quantity }}
+        {% if form.quantity.errors %}
+          <small class="form-text text-danger">{{ form.quantity.errors }}</small>
+        {% endif %}
+      </div>
+      <button type="submit" class="btn btn-primary mt-3">Save</button>
+    </form>
+  </div>
+{% endblock %}

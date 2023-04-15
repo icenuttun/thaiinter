@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  api:
+    build: ./thaiinter_api
+    command: gunicorn thaiinter_api.wsgi:application --bind 0.0.0.0:8000
+    expose:
+      - 8000
+    volumes:
+      - ./thaiinter_api/:/usr/src/thaiinter_api/
+      - static_volume:/usr/src/thaiinter_api/static
+      - media_volume:/usr/src/thaiinter_api/media
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.env.api
+    
+  db:
+    image: postgres:15.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./.env.db
+
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/usr/src/thaiinter_api/static
+      - media_volume:/usr/src/thaiinter_api/media
+    ports:
+      - 80:80
+    depends_on:
+      - api
+    env_file:
+      - ./nginx/.env
+
+volumes:
+  postgres_data:
+    driver: local
+  static_volume:
+  media_volume:

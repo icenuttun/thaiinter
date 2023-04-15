@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Track Roof</h1>
+  <p>Roof Id: {{ roof.id }}</p>
+  <p>Roof Type: {{ roof.roof_type }}</p>
+  <p>Size: {{ roof.size }}</p>
+  <p>Color: {{ roof.color }}</p>
+  <p>Quantity: {{ roof.quantity }}</p>
+  <p>Created Date: {{ roof.created_date }}</p>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="process_name">Process Name:</label>
+      <div class="input-group">
+        <select class="form-control" name="process_name" id="process_name">
+          <option value="">Select a process</option>
+          {% for process in processes %}
+            <option value="{{ process.id }}">{{ process.name }}</option>
+          {% endfor %}
+        </select>
+        <div class="input-group-append">
+          <a href="{% url 'tracking:add_process_name' qr_code_id=roof.qr_code_id %}" class="btn btn-primary"><i class="fas fa-plus"></i> Add Process Name</a>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="note">Note:</label>
+      <textarea class="form-control" name="note" id="note" rows="5"></textarea>
+    </div>
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" name="last_process" id="last_process">
+      <label class="form-check-label" for="last_process">Last Process</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+{% endblock %}

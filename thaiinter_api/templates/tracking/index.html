@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Last 10 tracking</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Roof Type</th>
+        <th>Size</th>
+        <th>Color</th>
+        <th>Quantity</th>
+        <th>Created Date</th>
+        <th>Process Name</th>
+        <th>Note</th>
+        <th>Date Added</th>
+        <th>Updated By</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in last_10_trackings %}
+        <tr>
+          <td>{{ item.roof.id }}</td>
+          <td>{{ item.roof.roof_type }}</td>
+          <td>{{ item.roof.size }}</td>
+          <td>{{ item.roof.color }}</td>
+          <td>{{ item.roof.quantity }}</td>
+          <td>{{ item.roof.created_date }}</td>
+          <td>{{ item.process_name }}</td>
+          <td>{{ item.note }}</td>
+          <td>{{ item.date_added }}</td>
+          <td>{{ item.updated_by }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="10">No items found</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

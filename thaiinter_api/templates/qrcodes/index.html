@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Metal Sheet Roofs</h1>
+  <a href="{% url 'qrcodes:add_roof' %}">Add Roof</a>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Roof Type</th>
+        <th>Size</th>
+        <th>Color</th>
+        <th>Quantity</th>
+        <th>Created By</th>
+        <th>Created Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for roof in roofs %}
+        <tr>
+          <td>{{ roof.id }}<td>
+          <td>{{ roof.roof_type }}</td>
+          <td>{{ roof.size }}</td>
+          <td>{{ roof.color }}</td>
+          <td>{{ roof.quantity }}</td>
+          <td>{{ roof.created_by }}</td>
+          <td>{{ roof.created_date }}</td>
+          <td>
+            <a href="{% url 'qrcodes:roof_detail' roof.id %}">View</a>
+            <a href="{% url 'qrcodes:qr_code_detail' roof.qr_code_id %}" target="_blank">Print QR Code</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
