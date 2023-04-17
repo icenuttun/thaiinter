@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>{% block title %}My App{% endblock %}</title>
+  <title>{% block title %}ระบบติดตามสินค้าด้วย QR code{% endblock %}</title>
   <style>
     body {
       margin: 0;
@@ -71,14 +71,15 @@
 </head>
 <body>
   <header>
-    <h1>{% block heading %}My App{% endblock %}</h1>
+    <h1>{% block heading %}ระบบติดตามสินค้าด้วย QR code{% endblock %}</h1>
     <nav>
       <ul>
-        <li><a href="#">Home</a></li>
+        <li><a href="{% url 'index' %}">Home</a></li>
         <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="{% url 'contact' %}">Contact</a></li>
       </ul>
-      <form action="#" method="post">
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
         <button type="submit">Logout</button>
       </form>
     </nav>
@@ -90,7 +91,7 @@
   </main>
 
   <footer>
-    <p>&copy; 2023 My App</p>
+    <p>&copy; 2023 ระบบติดตามสินค้าด้วย QR code</p>
   </footer>
 </body>
 </html>

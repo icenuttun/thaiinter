@@ -7,7 +7,7 @@ from .forms import CustomAuthenticationForm
 class CustomLoginView(LoginView):
     form_class = CustomAuthenticationForm
     template_name = 'accounts/login.html'
-    success_url = reverse_lazy('dashboard')
+    success_url = reverse_lazy('index')
 
 class CustomLogoutView(LogoutView):
-    next_page = reverse_lazy('home')
+    next_page = reverse_lazy('index')
